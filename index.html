@@ -1,35 +1,122 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Socket.IO chat</title>
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 13px Helvetica, Arial; }
-      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }
-    </style>
-  </head>
-  <body>
+
+<head>
+  <title>Socket.IO chat</title>
+</head>
+
+<body>
+  <div class="chat-container">
+    <div class="chat-header">Live Chat</div>
     <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
+    <form class="chat-form" action="">
+      <input id="m" autocomplete="off" />
+      <button style="color: white;">Send</button>
     </form>
-    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-    <script>
-      var socket = io();
-      $('form').submit(function(){
-        socket.emit('chat message', $('#m').val());
-        $('#m').val('');
-        return false;
-      });
-      socket.on('chat message', function(msg){
-        $('#messages').append($('<li>').text(msg));
-      });
-    </script>
-  </body>
+  </div>
+  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+  <script type="text/javascript">
+  var socket = io();
+  $('form').submit(function() {
+    socket.emit('chat message', $('#m').val());
+    $('#m').val('');
+    return false;
+  });
+  socket.on('chat message', function(msg) {
+    $('#messages').append($('<li>').text("Username: " + msg));
+  });
+  </script>
+</body>
+
 </html>
+<style type="text/css">
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font: 13px Helvetica, Arial;
+}
+
+form {
+  background: #000;
+  padding: 3px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+form input {
+  border: 0;
+  padding: 10px;
+  width: 90%;
+  margin-right: .5%;
+}
+
+form button {
+  width: 9%;
+  background: rgb(130, 224, 255);
+  border: none;
+  padding: 10px;
+}
+
+#messages {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#messages li {
+  padding: 5px 10px;
+}
+
+#messages li:nth-child(odd) {
+  background: #eee;
+}
+
+.chat-container {
+  border: 1px solid black;
+  background-color: white;
+  width: 200px;
+  height: 300px;
+  overflow-y: scroll;
+  position: fixed;
+  bottom: 0px;
+  right: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  box-shadow: 4px 4px 2px #888888;
+}
+
+.chat-container:hover {
+  height: 50px;
+  -webkit-transition: height 1s, -webkit-transform 1s;
+  /* Safari */
+  transition: height 1s, transform 1s;
+}
+
+.chat-header {
+  text-align: center;
+  width: 100%;
+  background-color: black;
+  color: white;
+  padding: 5px 0 5px 0;
+  border-bottom: 1px solid black;
+  z-index: 100;
+}
+
+.chat-form {
+  width: 200px;
+}
+
+.chat-form input {
+  width: 75%;
+}
+
+.chat-form button {
+  width: 22%
+}
+</style>
